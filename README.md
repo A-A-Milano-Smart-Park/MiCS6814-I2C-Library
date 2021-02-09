@@ -1,10 +1,9 @@
 # MiCS6814-I2C-MOD-Library
 
-## Modified ppm calculations from [paulvha's multichannel-gas][3] documents
+## Modified ppm calculations from [paulvha's multichannel-gas][2] documents
 
 Arduino library for controller boards connecting MiCS-6814 gas sensors to the I2C bus.
-Supported devices include the [Grove Multichannel Gas Sensor][2] as well as my [dedicated adapter board][1]
+Supported devices include the [Grove Multichannel Gas Sensor][1]
 
- [1]: https://github.com/eNBeWe/MiCS6814-I2C-PCB
- [2]: http://wiki.seeedstudio.com/Grove-Multichannel_Gas_Sensor/
- [3]: https://github.com/paulvha/multichannel-gas
+ [1]: http://wiki.seeedstudio.com/Grove-Multichannel_Gas_Sensor/
+ [2]: https://github.com/paulvha/multichannel-gas
