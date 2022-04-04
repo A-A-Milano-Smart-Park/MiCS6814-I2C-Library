@@ -98,6 +98,7 @@ enum gas {
 };
 typedef enum gas gas_t;
 
+
 class MiCS6814 {
 
 public:
@@ -114,6 +115,9 @@ public:
   void powerOff();
   void ledOn();
   void ledOff();
+    
+  // Copy an external array of offsets to the internal one.
+  void setOffsets(uint16_t offsets[]);
 
   // Low level value access, unit: analog voltage 0..1024
   uint16_t getResistance(channel_t channel);
@@ -169,12 +173,14 @@ public:
   // Show the (known) data in the EEPROM
   void display_eeprom();
 
+
 private:
   uint8_t __version;
   uint8_t __i2CAddress;
 
   uint16_t getEEPROMData(uint8_t eeprom_address);
   uint16_t getRuntimeData(uint8_t cmd, uint8_t responseLength, uint8_t responseOffset);
+  uint16_t getResistanceOffset(channel_t channel);
   float getCurrentRatio(channel_t channel);
 };
 

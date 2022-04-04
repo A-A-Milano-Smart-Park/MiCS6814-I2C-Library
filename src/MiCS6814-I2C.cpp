@@ -31,6 +31,9 @@
 
 #include "MiCS6814-I2C.h"
 
+// Stores externally set offset values for measured Resistance (CH_RED, CH_OX, CH_NH3)
+uint16_t resOffset[3] = {0, 0, 0};
+
 /**
  * Starts the connection to the gas sensor,
  * using the default I2C address.
@@ -290,6 +293,22 @@ void MiCS6814::ledOff(){
 
 }
 
+
+/**
+ * Copies the resistance offsets from an externally specified array
+ * to the local sensorOffset array.
+ *
+ * @param offsets[]
+ *        The array of offsets to copy locally.
+ */
+void MiCS6814::setOffsets(uint16_t offsets[]) {
+    for (int i = 0; i < 3; i++) {
+        resOffset[i] = offsets[i];
+    }
+
+}
+
+
 /**
  * Requests the current resistance for a given channel
  * from the sensor. The value is an ADC value between
@@ -366,6 +385,28 @@ uint16_t MiCS6814::getBaseResistance(channel_t channel) {
 
 
 /**
+ * Gets offset for a given channel from the sensorOffset array.
+ *
+ * @param channel
+ *        The channel where the offset is applied.
+ * @return The unsigned 16-bit externally specified offset
+ *         of the selected channel.
+ */
+uint16_t MiCS6814::getResistanceOffset(channel_t channel) {
+  switch (channel) {
+    case CH_NH3:
+      return resOffset[2];
+    case CH_RED:
+      return resOffset[0];
+    case CH_OX:
+      return resOffset[1];
+  }
+
+  return 0;
+}
+
+
+/**
  * Calculates the current resistance ratio for the given channel.
  *
  * @param channel
@@ -374,7 +415,10 @@ uint16_t MiCS6814::getBaseResistance(channel_t channel) {
  */
 float MiCS6814::getCurrentRatio(channel_t channel) {
   float baseResistance = (float) getBaseResistance(channel);
-  float resistance = (float) getResistance(channel);
+  float resistance = (float) (getResistance(channel) - getResistanceOffset(channel));
+
+  if (resistance < 1) resistance = 1.0;
+  else if (resistance > 1022) resistance = 1022.0;
 
   if (1 == __version) {
     return resistance / baseResistance;

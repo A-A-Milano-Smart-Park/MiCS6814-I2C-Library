@@ -13,10 +13,15 @@ powerOn	KEYWORD2
 powerOff	KEYWORD2
 ledOn	KEYWORD2
 ledOff	KEYWORD2
+setOffsets	KEYWORD2
 getResistance	KEYWORD2
 getResistanceNH3	KEYWORD2
 getResistanceRED	KEYWORD2
 getResistanceOX	KEYWORD2
+getResistanceOffset	KEYWORD2
+getResistanceOffsetNH3	KEYWORD2
+getResistanceOffsetRED	KEYWORD2
+getResistanceOffsetOX	KEYWORD2
 getBaseResistance	KEYWORD2
 getBaseResistanceNH3	KEYWORD2
 getBaseResistanceRED	KEYWORD2
