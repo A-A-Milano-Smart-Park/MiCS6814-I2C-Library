@@ -415,7 +415,7 @@ uint16_t MiCS6814::getResistanceOffset(channel_t channel) {
  */
 float MiCS6814::getCurrentRatio(channel_t channel) {
   float baseResistance = (float) getBaseResistance(channel);
-  float resistance = (float) (getResistance(channel) - getResistanceOffset(channel));
+  float resistance = (float) (getResistance(channel) + getResistanceOffset(channel));
 
   if (resistance < 1) resistance = 1.0;
   else if (resistance > 1022) resistance = 1022.0;
