@@ -32,7 +32,7 @@
 #include "MiCS6814-I2C.h"
 
 // Stores externally set offset values for measured Resistance (CH_RED, CH_OX, CH_NH3)
-uint16_t resOffset[3] = {0, 0, 0};
+int16_t resOffset[3] = {0, 0, 0};
 
 /**
  * Starts the connection to the gas sensor,
@@ -301,7 +301,7 @@ void MiCS6814::ledOff(){
  * @param offsets[]
  *        The array of offsets to copy locally.
  */
-void MiCS6814::setOffsets(uint16_t offsets[]) {
+void MiCS6814::setOffsets(int16_t offsets[]) {
     for (int i = 0; i < 3; i++) {
         resOffset[i] = offsets[i];
     }
@@ -344,6 +344,7 @@ uint16_t MiCS6814::getResistance(channel_t channel) {
   
   return 0;
 }
+
 
 /**
  * Requests the base resistance for a given channel
@@ -392,7 +393,7 @@ uint16_t MiCS6814::getBaseResistance(channel_t channel) {
  * @return The unsigned 16-bit externally specified offset
  *         of the selected channel.
  */
-uint16_t MiCS6814::getResistanceOffset(channel_t channel) {
+int16_t MiCS6814::getResistanceOffset(channel_t channel) {
   switch (channel) {
     case CH_NH3:
       return resOffset[2];
